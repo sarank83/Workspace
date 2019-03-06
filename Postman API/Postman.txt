@@ -1,0 +1,5 @@
+https://www.restapitutorial.com/lessons/httpmethods.html
+
+https://www.restapitutorial.com/httpstatuscodes.html
+
+https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
