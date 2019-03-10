@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "13735aae-7cba-421e-bb67-4a53502e794c",
+		"name": "Weather API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OWM_CityName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f68d28a-1cfe-4a42-8cc8-1a4c7405885c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 400ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://samples.openweathermap.org/data/2.5/weather?q={{city}}&appid={{key}}",
+					"protocol": "https",
+					"host": [
+						"samples",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{city}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{key}}"
+						}
+					]
+				},
+				"description": "Open Weather Map request by City Name"
+			},
+			"response": []
+		}
+	]
+}

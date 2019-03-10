@@ -1,5 +1,47 @@
-https://www.restapitutorial.com/lessons/httpmethods.html
 
-https://www.restapitutorial.com/httpstatuscodes.html
 
-https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+Newman Run:
+
+$ newman run https://www.getpostman.com/collections/8d6a14935952d25398f9
+newman: Newman v4 deprecates support for the v1 collection format
+  Use the Postman Native app to export collections in the v2 format
+
+newman
+
+Weather API
+
+? OWM_CityName
+  GET https://samples.openweathermap.org/data/2.5/weather?q={{city}}&appid={{key}} [200 OK, 929B, 871ms]
+  v  Status code is 200
+  1. Response time is less than 400ms
+
++------------------------------------------------------------------+
+¦                         ¦           executed ¦            failed ¦
++-------------------------+--------------------+-------------------¦
+¦              iterations ¦                  1 ¦                 0 ¦
++-------------------------+--------------------+-------------------¦
+¦                requests ¦                  1 ¦                 0 ¦
++-------------------------+--------------------+-------------------¦
+¦            test-scripts ¦                  1 ¦                 0 ¦
++-------------------------+--------------------+-------------------¦
+¦      prerequest-scripts ¦                  0 ¦                 0 ¦
++-------------------------+--------------------+-------------------¦
+¦              assertions ¦                  2 ¦                 1 ¦
++------------------------------------------------------------------¦
+¦ total run duration: 970ms                                        ¦
++------------------------------------------------------------------¦
+¦ total data received: 459B (approx)                               ¦
++------------------------------------------------------------------¦
+¦ average response time: 871ms [min: 871ms, max: 871ms, s.d.: 0ns] ¦
++------------------------------------------------------------------+
+
+  #  failure         detail
+
+ 1.  AssertionError  Response time is less than 400ms
+                     expected 871 to be below 400
+                     at assertion:1 in test-script
+                     inside "OWM_CityName"
+
+For ex: datadriven
+newman run mycollection.json -d data.json
+newman run mycollection.json -d data.csv

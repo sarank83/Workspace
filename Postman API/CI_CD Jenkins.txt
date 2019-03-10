@@ -1,0 +1,11 @@
+newman run mycollection.json -r html,cli,json,junit
+
+
+https://github.com/postmanlabs/newman
+
+FreeStyle Project
+
+Build 
+
+Exceute Shell script
+newman run https://www.getpostman.com/collections/8d6a14935952d25398f9
