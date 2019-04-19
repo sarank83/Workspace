@@ -1,0 +1,8 @@
+
+https://github.com/postmanlabs/newman-docker/
+
+docker pull postman/newman_ubuntu1404
+
+docker run -t postman/newman_ubuntu1404 run "https://www.getpostman.com/collections/8d6a14935952d25398f9"
+
+

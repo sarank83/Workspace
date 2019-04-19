@@ -1,7 +1,11 @@
+https://learning.getpostman.com/docs/postman/collection_runs/integration_with_jenkins/
+
+https://github.com/postmanlabs/newman
+
 newman run mycollection.json -r html,cli,json,junit
 
 
-https://github.com/postmanlabs/newman
+
 
 FreeStyle Project
 

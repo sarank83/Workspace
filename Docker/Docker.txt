@@ -1,0 +1,334 @@
+Docker install on Linux:  172.17.0.1
+
+root@myunbuntu:/home/myunbuntu# sudo apt-get install \
+> apt-transport-https \
+> ca-certificates \
+> curl \
+> software-properties-common
+
+root@myunbuntu:/home/myunbuntu# apt install curl
+
+root@myunbuntu:/home/myunbuntu# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+
+
+1. First, update your existing list of packages:
+
+sudo apt update
+
+2. Next, install a few prerequisite packages which let apt use packages over HTTPS:
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+
+3. Then add the GPG key for the official Docker repository to your system:
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+
+4.sudo apt-key fingerprint 0EBFCD88
+
+5. Add the Docker repository to APT sources:
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+
+6. Next, update the package database with the Docker packages from the newly added repo:
+
+sudo apt update
+
+7. Make sure you are about to install from the Docker repo instead of the default Ubuntu repo:
+
+apt-cache policy docker-ce
+
+You'll see output like this, although the version number for Docker may be different:
+
+Output of apt-cache policy docker-ce
+docker-ce:
+  Installed: (none)
+  Candidate: 18.03.1~ce~3-0~ubuntu
+  Version table:
+     18.03.1~ce~3-0~ubuntu 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+Notice that docker-ce is not installed, but the candidate for installation is from the Docker repository for Ubuntu 18.04 (bionic).
+
+8. Finally, install Docker:
+
+sudo apt install docker-ce
+
+9. docker run hello-world
+10. docker search ubuntu
+
+make a image
+11. docker pull ubuntu
+
+view all images
+12. docker images
+
+nginx images
+docker images pull nginx:latest
+
+
+--list Containers running
+docker ps -a
+
+
+--Run a container
+docker container run -itd --name web-server-nginx -p 8080:80 nginx:latest
+
+-itd = interactive Teletype detach  
+--name = name
+-p = port 
+:latest = latest image
+
+
+DockerFile = To Build
+DockerImage = Ship
+Doker Container = To Run
+
+
+Docker Engine:
+
+Docker CLI
+	docker run
+	docker pull
+
+Docker API - some programs to talk with docker
+	client.containers.run
+	client.containers.list
+
+Docker Host is the machine which actually performs the task of containerization.
+
+It runs a program or piece of software called "docker daemon" which listens to and performs actions
+asked by Docker Client. Docker demon builds Dockerfile and turns it into docker image. 
+
+Dockerfiles and Docker Images can commuicate to docker daemon
+
+Image can be built by Docker File or pull from docker hub
+
+Docker Registry - It serves as a place to store docker images and to make them available to others.
+
+Docker File:
+1. A sequential set of instructions for docker engine.
+2. Primary way to communicate docker 
+3. Sequential order is important and used to create images.
+4. Each instructions can be layered in a order.
+5. Each layer can be cached and reuse in docker.
+
+
+docker build -t QA-test .
+
+-t = tag name of the image
+. = docker file in the present directory
+
+'Exceute the container
+docker exec -it <containerName> bash
+
+Exit 'Command used to exit out of container
+
+--rm 'flag automatically remove the container once its stopped 
+
+
+https://docs.docker.com/engine/reference/commandline/cli/
+https://afourtech.com/guide-docker-commands-examples/
+https://www.devteam.space/blog/list-of-docker-commands-with-examples/
+
+
+Docker IMages
+1. A stack of multiple layer created from docker file sequential instructions.
+2. Each layer is read-only apart rom top one
+3. Top layer is read-write
+4. It can be recognized by name or ID.
+5. It can be pushed to and can be pulled from docker hub.
+
+
+
+docker search python:3.6
+- Search in docker hub
+
+docker search registry 
+- Search offical images
+
+docker search --filter "is-offical=true" registry
+
+-Format your search (table format)
+docker search --format "table {{.Name}}\t{{.Description}}\t{{.IsOfficial}}" registry
+
+\t - tab or space character
+
+'List of images on the host
+docker image ls or docker image
+
+docker images ubuntu
+
+docker images ubuntu:16.04
+
+'pull from docker hub repo and nginx image contains tag latest
+docker image pull nginx:latest
+
+'pull alpine tag
+docker image pull nginx:alpine
+
+'pull all tags of nginx from docker hub
+docker image pull -all-tags nginx
+
+
+'To push a new tag to my repository,
+docker push sarank83/repo-nginx:tagname
+
+
+'You can push a new image to this repository using the CLI
+'Make sure to change tagname with your desired image repository tag.
+docker tag local-image:tagname reponame:tagname
+docker push reponame:tagname
+
+Ex: local to docker hub
+docker tag nginx:latest sarank83/repo-nginx:cc-nginx
+
+docker image push sarank83/repo-nginx:cc-nginx
+
+'Inspect - details of image in json format
+docker image inspect ubuntu:latest
+
+
+docker image inspect --format "{{.RepoTags}} : {{.RepoDigests}}" ubuntu:latest
+
+
+'To write it in text file
+docker image inspect --format "{{json .Config}}" ubuntu > inspect_report_ubuntu.txt
+
+'History of the images
+docker image history ubuntu
+
+
+'Remove image
+docker image rm testing1:latest
+
+-Imageid
+docker rmi 336265280y12
+
+
+
+Containers
+1.Running instances of Docker images.
+2.Provides similar isloations to VMs and 100 times lighther than VM.
+3.Provides writeable layer to top of image layer.
+4.Can comunicate to other containers using IP or DNS as like linux processes.
+5. Uses Copy-on-write.
+
+Run a image = CPU + Memory + Storage
+
+
+Docker run Vs create
+
+'Create a Container 
+docker container create -it --name cc-busybox-A busybox:latest
+
+'list container
+docker ps -a
+ 
+'Container status as "Created"
+docker container run -itd --rm --name cc_busybox_B busybox:latest
+
+
+Docker Start, Stop and Rename
+
+docker container start <containerName>
+
+Ex: docker container start cc-busybox-A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Docker run -name <LocalContainerName> --link <LOcalContainerName>:ActualcontainerName
+
+https://hub.docker.com/_/mysql
+
+docker pull mysql
+
+docker run --name sasql -e MYSQL_ROOT_PASSWORD=sa123 -d mysql:latest
+
+docker pull wordpress
+
+Link to MySQL to wordpress
+$ docker run --name sawordpress --link sasql:mysql -p 0.0.0.0:8080:80 -d wordpress
+
+docker run --name sasql --env MYSQL_ROOT_PASSWORD=sa123 --env MYSQL_DATABASE=wordpress --env MYSQL_USER=sasql --env MYSQL_PASSWORD=sa123 -p 0.0.0.0:8080:80 --restart=always -d mysql:latest
+
+ 0.0.0.0:8080->80
+ 
+docker run --env MYSQL_ROOT_PASSWORD=sa123 --env MYSQL_DATABASE=wordpress --env MYSQL_USER=sasql --env MYSQL_PASSWORD=sa123 -p 0.0.0.0:8080:80 --restart=always -d mysql:latest 
+
+ 
+C:\Program Files\Docker\Docker\Resources\bin\docker.exe: 
+Error response from daemon: driver failed programming external connectivity on endpoint sawordpress 
+(6c237f6a120c5b909d9169dfde2655953b33f8c60cb61d617be8f7e86aed6a7e): 
+Error starting userland proxy: mkdir /port/tcp:0.0.0.0:8080:tcp:172.17.0.3:80: input/output error.
+
+
+Selenium hub:
+docker run -d --name selenium-hub selenium/hub
+
+To from program:
+docker run -d -p 4446:4444 --name selenium-hub -P selenium/hub
+
+Link Selenium Node chrome debug:
+docker run -d -P --link selenium-hub:hub selenium/node-chrome-debug
+
+docker run -d -P --link selenium-hub:hub selenium/node-firefox-debug
+
+
+
+
+
+
+
+
+
+
+
+

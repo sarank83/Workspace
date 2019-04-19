@@ -1,7 +1,4 @@
 java -jar jenkins.war
 
-Exceute Shell script
-
-newman run https://www.getpostman.com/collections/8d6a14935952d25398f9
 
 
