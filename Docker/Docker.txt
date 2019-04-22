@@ -236,10 +236,79 @@ docker container run -itd --rm --name cc_busybox_B busybox:latest
 Docker Start, Stop and Rename
 
 docker container start <containerName>
-
 Ex: docker container start cc-busybox-A
 
+docker container stop <containerName>
+Ex: docker container stop cc-busybox-A
 
+docker container rename <old containerName> <new containerName>
+Ex: docker container rename cc-busybox-A my-busybox
+
+docker container restart <Buffer 5 sec> <container name>
+Ex: docker container restart --time 5 my-busybox
+
+docker container attach my-busybox
+'Terminal docker client
+
+docker exec -it my-busybox pwd
+/ 
+root of my-busybox
+
+
+Container Exposure
+
+Port Mappings
+
+docker container run -itd --name <container name> -p 8080:80/tcp <image name>
+
+Ex: docker container run -itd --name cont_nginx -p 8080:80/tcp img_expose
+
+Allow docker to map the port 
+
+docker container run -itd --name cont_nginx-A -p img_expose
+
+port 32768:80 allocated to the image
+
+
+Erasing Containers
+
+docker container rm <container name>
+Ex: docker container rm cont_from
+
+docker container rm <container id>
+docker container rm da62d8caf184 
+
+For a running container
+docker container rm my-busybox
+
+Error response from daemon: You cannot remove a running container e2cf4e8ddf5e871...
+stop the container before attemping	removal	or force remove
+
+But
+
+docker container rm my-busybox --force
+'to forcing container to remove
+
+Kill Container properly
+docker container kill --signal=SIGTERM <cointainer name>
+
+To remove all stopped container
+docker container prune
+
+
+Multi Container - Networking
+- Infomation/commuication between containers called network drivers (docker network drivers)
+- Responsible for invoking a network inside the host within the cluster.
+- Native network drivers are shipped with docker engine.
+- Remote network drivers are handled by 3rd party.
+- IP address management drivers which handles IP range and distribution if not specififed.
+
+
+Docker Native netwok driver
+- Host network
+- Bridge network
+- Overlay network
+- Underlay network (contains source and destination containers ip)
 
 
 

@@ -1,0 +1,82 @@
+Kobiton_Andriod:
+
+import java.net.URL;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+public class Kobiton_Andriod {
+  public static void main(String[] args) throws Exception {
+    String kobitonServerUrl = "https://sarank83:08366498-32cb-4931-a93e-99958255b72e@api.kobiton.com/wd/hub";
+    DesiredCapabilities capabilities = new DesiredCapabilities();
+    capabilities.setCapability("sessionName", "Automation test session on Android web");
+    capabilities.setCapability("sessionDescription", "Example Android web testing");
+    capabilities.setCapability("deviceOrientation", "portrait");
+    capabilities.setCapability("captureScreenshots", true);
+    capabilities.setCapability("browserName", "chrome");
+    capabilities.setCapability("deviceGroup", "KOBITON");
+    capabilities.setCapability("deviceName", "Galaxy A5(2017)");
+    capabilities.setCapability("platformVersion", "8.0.0");
+    capabilities.setCapability("platformName", "Android");
+
+    RemoteWebDriver driver = new RemoteWebDriver(new URL(kobitAonServerUrl), capabilities);
+		
+    /**
+    * Prints Kobiton Session Id
+    */
+
+    String kobitonSessionId = driver.getCapabilities().getCapability("kobitonSessionId").toString();
+    System.out.println("Your test session is: https://portal.kobiton.com/sessions/" + kobitonSessionId);
+    
+    driver.get("http://appium.io/");
+
+    /**
+    * Goes to Appium page and prints URL & title
+    */
+    System.out.println("Current URL is: " + driver.getCurrentUrl());
+    System.out.println("Title of page is: " + driver.getTitle());
+
+    driver.quit();
+  }
+}
+
+
+
+Kobiton_IOS 
+
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import java.net.URL;
+ 
+public class Kobiton_IOS {
+  public static void main(String[] args) throws Exception {
+    String kobitonServerUrl = "https://sarank83:08366498-32cb-4931-a93e-99958255b72e@api.kobiton.com/wd/hub";
+    DesiredCapabilities capabilities = new DesiredCapabilities();
+    capabilities.setCapability("sessionName", "Automation test session on iOS web");
+    capabilities.setCapability("sessionDescription", "This is example iOS web testing");
+    capabilities.setCapability("deviceOrientation", "portrait");
+    capabilities.setCapability("captureScreenshots", true);
+    capabilities.setCapability("browserName", "safari");
+    capabilities.setCapability("deviceGroup", "KOBITON");
+    capabilities.setCapability("deviceName", "iPhone 6s Plus");
+    capabilities.setCapability("platformVersion", "10.1.1");
+    capabilities.setCapability("platformName", "iOS");  
+    
+ 
+    RemoteWebDriver driver = new RemoteWebDriver(new URL(kobitonServerUrl), capabilities);
+ 
+    /**
+    * Prints Kobiton Session Id
+    */
+ 
+    String kobitonSessionId = driver.getCapabilities().getCapability("kobitonSessionId").toString();
+    System.out.println("Your test session is: https://portal.kobiton.com/sessions/" + kobitonSessionId);
+ 
+    driver.get("http://appium.io/");
+    System.out.println("Current URL is: " + driver.getCurrentUrl());
+    System.out.println("Title of page is: " + driver.getTitle());
+    /**
+     * Goes to Appium page and prints URL & title
+     */
+    driver.quit();
+  }
+}
