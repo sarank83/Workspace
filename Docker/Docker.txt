@@ -310,6 +310,119 @@ Docker Native netwok driver
 - Overlay network
 - Underlay network (contains source and destination containers ip)
 
+Docker Network
+
+docker network create --driver bridge my-bridge
+
+docker network create --driver bridge --subnet=192.168.0.0/16 --ip-range=192.168.5.0/24 my-bridge-1
+
+docker network ls
+
+docker network ls --filter driver=bridge
+
+
+Connect Network with a container
+- Container should be running state so that communication can happen
+
+docker network connect my-bridge-1 my-ubuntu
+- no repsone on the screen, better way is to inspect
+
+docker container inspect my-ubuntu
+-- navigate to networks section which shows details
+
+docker container run -itd --network host --name cont_nginx nginx:latest
+
+docker container port cont_nginx
+-- no port mapping takes place with host network driver.
+-- If user not provided any container then docker provides default network as Bridge
+-- if you inspect Bridge network, then it contains subnet and ip details in network section.
+
+
+Docker Network disconnect
+
+docker network disconnect my-bridge-1 my-ubuntu
+-- inpsect my-bridge-1 and my-ubuntu connections removed
+
+
+Docker Storage
+-- eitheir in Docker Host or Other Server or Cloud
+ 
+Volume are storage object of docker which are mount to the container 
+Volume are dedicated directories of the host in the file system
+if container app shipped along with the volume then people apart developer himself will end up create own directories.
+Storage in any directory
+
+Bind mounts will used to create any folder in host but exposes storage location
+of the container which impact overall security of application /host.
+
+
+tmpfs
+or
+tempfs 
+
+-- Container can create file outside the containers writable layer. 
+-- tmpfs mount is temporary and if container stopped then tmpfs file not presist.
+-- tmpfs limitation are not shipable 
+
+
+Docker Volume
+
+docker volume create vol-busybox
+ cmd vol-busybox
+ 
+docker run -d --volume vol-ubuntu:/tmp ubuntu
+
+docker volume ls
+
+-- 4 volume will be created, 2 created by docker using local volume and 2 user volume
+
+docker volume ls --filter "dangling=true"
+-- which is not mounted with any container
+
+docker volume inspect vol-ubuntu
+-- displays mount, name, createdDateTime and etc.,
+
+'assume it is running
+docker volume rm vol-busybox
+then error response from daemon
+we need to remove container and then remove volume 
+
+
+Mount volumes to containers
+
+docker run -itd --name cont-ubuntu --volume vol-ubuntu:/var/log ubuntu:latest
+
+docker container inspect --format "{{json .Mounts}}" cont-ubuntu | python -m json.tool
+
+docker exec -it cont--ubuntu bash
+- Navigate to container terminal 
+- Change readwrite top most layer
+
+- Update ubuntu 
+Terminal: apt-get update
+
+-- change the log under (cd/var/log)
+-- Exit and stop container 
+
+docker stop cont-ubuntu
+
+- Navigate to same root directory in the container and list out the directory.
+- Navigate to data directory and verify the log 
+- if so there then mounting sucess.
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
 
 
 
