@@ -16,3 +16,17 @@ test('get started link', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 });
+
+test('yahoo login button click', async ({ page }) => {
+  // Navigate to Yahoo homepage
+  await page.goto('https://www.yahoo.com');
+
+  // Click the Sign in button/link
+  await page.getByRole('link', { name: 'Sign in' }).click();
+
+  // Verify we've navigated to the login page
+  await expect(page).toHaveURL(/login\.yahoo\.com/);
+
+  // Verify the login page has the expected title
+  await expect(page).toHaveTitle(/Login - Sign in to Yahoo/);
+});
